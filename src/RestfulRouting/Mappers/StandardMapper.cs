@@ -60,7 +60,12 @@ namespace RestfulRouting.Mappers
 
         public StandardMapper Allow(params HttpVerbs[] methods)
         {
-            Route.Constraints["httpMethod"] = new RestfulHttpMethodConstraint(methods.Select(x => x.ToString().ToUpperInvariant()).ToArray());
+            return this.Allow(methods.Select(x => x.ToString()));
+        }
+        
+        public StandardMapper Allow(params string[] methods)
+        {
+            Route.Constraints["httpMethod"] = new RestfulHttpMethodConstraint(methods.Select(x => x.ToUpperInvariant()).ToArray());
 
             return this;
         }
